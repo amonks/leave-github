@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@octokit/rest": "^15.8.2",
+    "shelljs": "^0.8.2"
+  }
+}
