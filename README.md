@@ -1,5 +1,5 @@
 How To Run Your Own Git Server
-##############################
+==============================
 
 Since Microsoft bought GitHub (henceforth, MSGHub), I think I should back up
 all my git repos. I will take notes in this document. If you also want to back
@@ -64,6 +64,12 @@ click "Launch Instance".
 I picked "Amazon Linux 2 LTS Candidate 2 AMI (HVM), SSD Volume Type" because it
 was near the top of the list, nothing matters, and 2 is one better than 1.
 "SSD" sounds expensive, but it also says "free tier elligible", so, #whatever.
+
+> I ran out of space later on when cloning all my repos so I looked this up:
+> the free tier comes with 30GB of EBS storage, and you SSDs and magnets are
+> both included.
+> 
+> [source](https://aws.amazon.com/free/)
 
 Then, pick the free one.
 
@@ -216,19 +222,31 @@ This is what the gitolite-admin repo looks like:
 From the [github tokens page](https://github.com/settings/tokens),
 make a new token.
 
+_don't forget to add it to 1password_
+
 Also, on your git server, make an SSH key for the `git` user with
 `ssh-keygen`, and add it to github.
 
 I made a node script for the cloning part. It's in this repo. On the
-server, run:
+server, go back to the ec2-user user, and run:
 
 ```bash
-$ sudo su git
 $ curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-$ git clone amonks/personal-git
-$ cd personal-git
+$ sudo yum install -y nodejs
+
+$ sudo su git
+$ cd
+$ git clone git@github.com:amonks/leave-github.git
+$ cd leave-github
 $ npm install
+
+# edit the token in clone.js to be the token you made on github
+
 $ node clone.js
 ```
 
-^ this might take a long time.
+^ this might take a long time. Mine started at 01:16:45, and ended at 1:33.
+
+I blacklisted the github org EpicGames in the script, because I know I'm in the org but I don't want a copy of the Unreal Engine.
+
+If, like me, you have a ton of shit in github but you aren't really sure how much "a ton" is, you might want to run `df -h` periodically in another shell, while the clone is happening, to make sure your drive doesn't get full.
