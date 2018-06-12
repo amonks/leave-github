@@ -287,3 +287,17 @@ repo CREATOR/public/[a-z0-9A-Z-]+
     R       =   @all
 ```
 
+=======
+server, run:
+
+```bash
+$ sudo su git
+$ curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+$ git clone amonks/personal-git
+$ cd personal-git
+$ npm install
+$ node clone.js
+```
+
+^ this might take a long time.
+>>>>>>> initial commit

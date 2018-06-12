@@ -39,15 +39,12 @@ const cloneUrl = fullName => {
   return `git@github.com:${fullName}.git`;
 };
 
-let skipping = true
-
 const cloneRepo = async fullName => {
   const {user, repo} = parseRepoName(fullName);
-  if (user === 'EpicGames') { skipping = false; return }
-  if (skipping) return
+  if (user === 'EpicGames') return
   const dir = `~/repositories/${user}`;
   $.exec(`mkdir -p ${dir}`);
-  $.exec(`git clone ${cloneUrl(fullName)} ${dir}/${repo}.git`);
+  $.exec(`git clone --bare ${cloneUrl(fullName)} ${dir}/${repo}.git`);
 };
 
 const cloneAllRepos = async () => {
