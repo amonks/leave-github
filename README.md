@@ -247,6 +247,43 @@ $ node clone.js
 
 ^ this might take a long time. Mine started at 01:16:45, and ended at 1:33.
 
-I blacklisted the github org EpicGames in the script, because I know I'm in the org but I don't want a copy of the Unreal Engine.
+I blacklisted the github org EpicGames in the script, because I know I'm in the
+org but I don't want a copy of the Unreal Engine.
 
-If, like me, you have a ton of shit in github but you aren't really sure how much "a ton" is, you might want to run `df -h` periodically in another shell, while the clone is happening, to make sure your drive doesn't get full.
+If, like me, you have a ton of shit in github but you aren't really sure how
+much "a ton" is, you might want to run `df -h` periodically in another shell,
+while the clone is happening, to make sure your drive doesn't get full.
+
+### Add all your repos to gitolite
+
+I'm following the instructions on [gitolite's website](http://gitolite.com/gitolite/basic-admin/#appendix-1-bringing-existing-repos-into-gitolite).
+
+```bash
+gitolite setup
+```
+
+Now, we have to add the repositories to `conf/gitolite.conf`.
+
+On your own computer, navigate back to your clone of gitolite-admin, and edit
+conf/gitolite.conf.
+
+Mine looks like this:
+
+```
+repo gitolite-admin
+    RW+     =   amonks
+
+repo testing
+    RW+     =   @all
+
+repo CREATOR/[a-z0-9A-Z-]+
+    RW+     =   amonks
+    C       =   CREATOR
+    RW+     =   CREATOR
+
+repo CREATOR/public/[a-z0-9A-Z-]+
+    C       =   CREATOR
+    RW+     =   CREATOR
+    R       =   @all
+```
+
