@@ -297,3 +297,14 @@ conf/gitolite.conf.
 
 On the server, as the `git` user, edit `~/.gitolite.rc` and uncomment the
 'create' command.
+
+# hey wow cool we did all the things
+
+to recap:
+
+you can do `ssh git info` to list all your repos
+
+you can do `git clone git:amonks/repo` to clone a repo, or create a new one
+
+you can do `git clone git:amonks/private/repo` to clone a private repo, or create a new one
+
