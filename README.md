@@ -270,20 +270,27 @@ conf/gitolite.conf.
 Mine looks like this:
 
 ```
+@users = amonks
+
 repo gitolite-admin
     RW+     =   amonks
 
-repo testing
-    RW+     =   @all
-
-repo CREATOR/[a-z0-9A-Z-]+
-    RW+     =   amonks
-    C       =   CREATOR
+repo CREATOR/private/[a-z0-9A-Z].*
+    C       =   @users
     RW+     =   CREATOR
 
-repo CREATOR/public/[a-z0-9A-Z-]+
-    C       =   CREATOR
+repo CREATOR/[a-z0-9A-Z].*
+    C       =   @users
     RW+     =   CREATOR
     R       =   @all
+
 ```
 
+You can add a new user by adding their public key to `keydir` in
+gitolite-admin, and then adding their name to the @users group in
+conf/gitolite.conf.
+
+### Allow users to create repos
+
+On the server, as the `git` user, edit `~/.gitolite.rc` and uncomment the
+'create' command.
