@@ -61,12 +61,13 @@ once. Plus, free tier!
 From the [ec2 page](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Home:),
 click "Launch Instance".
 
-I picked "Amazon Linux 2 LTS Candidate 2 AMI (HVM), SSD Volume Type" because it
+I picked "Amazon Linux 2 LTS Candidate 2 AMI (HVM), SSD Volume Type" because nothing matters.
+
 was near the top of the list, nothing matters, and 2 is one better than 1.
 "SSD" sounds expensive, but it also says "free tier elligible", so, #whatever.
 
 > I ran out of space later on when cloning all my repos so I looked this up:
-> the free tier comes with 30GB of EBS storage, and you SSDs and magnets are
+> the free tier comes with 30GB of EBS storage, and SSDs and magnets are
 > both included.
 > 
 > [source](https://aws.amazon.com/free/)
