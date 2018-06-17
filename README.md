@@ -243,9 +243,12 @@ $ npm install
 # edit the token in clone.js to be the token you made on github
 
 $ node clone.js
-```
+# ^ this might take a long time. Mine started at 01:16:45, and ended at 1:33.
 
-^ this might take a long time. Mine started at 01:16:45, and ended at 1:33.
+
+# this next step probably isn't necessary:
+$ bash creators.sh
+```
 
 I blacklisted the github org EpicGames in the script, because I know I'm in the
 org but I don't want a copy of the Unreal Engine.
