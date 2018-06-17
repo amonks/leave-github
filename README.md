@@ -293,8 +293,8 @@ server, run:
 ```bash
 $ sudo su git
 $ curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-$ git clone amonks/personal-git
-$ cd personal-git
+$ git clone git@github.com:amonks/leave-github.git
+$ cd leave-github
 $ npm install
 $ node clone.js
 ```
