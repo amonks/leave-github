@@ -309,3 +309,26 @@ you can do `git clone git:amonks/repo` to clone a repo, or create a new one
 
 you can do `git clone git:amonks/private/repo` to clone a private repo, or create a new one
 
+## bonus: backup to s3
+
+- make an iam role with AmazonS3FullAccess and attach it to the ec2 instance
+   - ^ FullAccess is safe because we're scoping by account
+- make an s3 bucket called (for example) `amonks-git-backups`
+- make a file on the server `/home/git/backup.sh`:
+
+```sh
+#!/usr/bin/env bash
+
+aws s3 sync ~/repositories s3://amonks-git-backups
+echo "`date`" > ~/last_backup
+```
+
+- do `chmod +x ~/.backup.sh`
+- add it to your crontab. do `crontab -e`, then add:
+   - `0 5,17 * * * /home/git/backup.sh`
+   - ^ to run backups at 5am and 5pm
+   - as ec2-user: `sudo chkconfig crond on` <- enable cron
+
+
+
+
