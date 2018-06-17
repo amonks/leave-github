@@ -20,14 +20,16 @@ async function paginate(method, opts = {}) {
 
 const getRepos = async () => {
   const repos = await paginate(octokit.repos.getAll, {});
-  const repoNames = repos.map(repo => repo.full_name);
-  console.log({repoNames});
-  return repoNames;
-};
-
-const printAllRepoNames = async () => {
-  const repos = await getRepos();
-  console.log(JSON.stringify(repos));
+  const publicRepos = []
+  const privateRepos = []
+  repos.forEach(repo => {
+    if (repo.private) {
+      privateRepos.push(repo.full_name)
+    } else {
+      publicRepos.push(repo.full_name)
+    }
+  })
+  return {publicRepos, privateRepos};
 };
 
 const parseRepoName = fullName => {
@@ -39,18 +41,21 @@ const cloneUrl = fullName => {
   return `git@github.com:${fullName}.git`;
 };
 
-const cloneRepo = async fullName => {
+const cloneRepo = async (prefix, fullName) => {
   const {user, repo} = parseRepoName(fullName);
   if (user === 'EpicGames') return
-  const dir = `~/repositories/${user}`;
+  const dir = `~/repositories/${user}${prefix}`;
   $.exec(`mkdir -p ${dir}`);
   $.exec(`git clone --bare ${cloneUrl(fullName)} ${dir}/${repo}.git`);
 };
 
 const cloneAllRepos = async () => {
-  const repos = await getRepos();
-  for (const repo of repos) {
-    await cloneRepo(repo);
+  const {publicRepos, privateRepos} = await getRepos();
+  for (const repo of privateRepos) {
+    await cloneRepo('/private', repo);
+  }
+  for (const repo of publicRepos) {
+    await cloneRepo('', repo);
   }
 };
 
